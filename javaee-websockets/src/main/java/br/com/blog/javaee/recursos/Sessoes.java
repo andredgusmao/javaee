@@ -1,5 +1,6 @@
 package br.com.blog.javaee.recursos;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,5 +22,17 @@ public class Sessoes {
 
 	public int ativas() {
 		return set.size();
+	}
+
+	public void broadcast(String mensagem, Session sessaoEnviando) {
+		for (Session sessao : set) {
+			if(sessao.isOpen()) {
+				try {
+					if(!sessao.equals(sessaoEnviando)) sessao.getBasicRemote().sendText(mensagem);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

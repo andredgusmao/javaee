@@ -10,14 +10,14 @@ import javax.websocket.server.ServerEndpoint;
 import br.com.blog.javaee.recursos.Sessoes;
 
 @ServerEndpoint("/mensagem")
-public class MensagensWebsocket {
+public class ImagensWebsocket {
 	
 	@Inject private Sessoes sessoes;
 	
 	@OnMessage
 	public void novaMensagem(final Session sessao, final String mensagem) {
 		System.out.println("novaMensagem " + mensagem);
-		sessoes.broadcast(mensagem);
+		sessoes.broadcast(mensagem, sessao);
 	}
 	
 	@OnOpen
